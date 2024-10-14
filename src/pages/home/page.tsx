@@ -208,7 +208,20 @@ const Home = (): ReactElement => {
           ) : (
             isAccepted && (
               <Grid container spacing={1} alignItems="center" justifyContent="center" sx={{ mb: 1 }}>
-                
+                <Grid item xs={6} display="flex" justifyContent="flex-end">
+                  <Autocomplete
+                    size="small"
+                    options={activeDrivers}
+                    getOptionLabel={(option: { name: string }) => option.name}
+                    fullWidth
+                    renderInput={(params) => <TextField {...params} label="Select a driver" />}
+                    onChange={(_, newValue) => setSelectedDriver(newValue as { id: string; name: string; } | null)}
+                  />
+                </Grid>
+                <Grid item xs={6} display="flex" alignItems="center" justifyContent="center" sx={{ mt: 3 }}>
+                  <Button variant="contained" color="primary" onClick={handleConfirmAccept}>Confirm</Button>
+                  <Button variant="contained" color="warning" onClick={() => setIsAccepted(false)}>Cancel</Button>
+                </Grid>
               </Grid>
             )
           )}
