@@ -219,7 +219,7 @@ const Home = (): ReactElement => {
                   />
                 </Grid>
                 <Grid item xs={6} display="flex" alignItems="center" justifyContent="center" sx={{ mt: 1 }}>
-                  <Button variant="contained" color="primary" onClick={handleConfirmAccept}>Confirm</Button>
+                 
                   <Button variant="contained" color="warning" onClick={() => setIsAccepted(false)}>Cancel</Button>
                 </Grid>
               </Grid>
