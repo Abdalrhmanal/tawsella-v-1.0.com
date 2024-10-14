@@ -213,12 +213,12 @@ const Home = (): ReactElement => {
                     size="small"
                     options={activeDrivers}
                     getOptionLabel={(option: { name: string }) => option.name}
-                    style={{ width: 300 }}
+                    fullWidth
                     renderInput={(params) => <TextField {...params} label="Select a driver" />}
                     onChange={(_, newValue) => setSelectedDriver(newValue as { id: string; name: string; } | null)}
                   />
                 </Grid>
-                <Grid item xs={6} display="flex" justifyContent="flex-start">
+                <Grid item xs={6} display="flex" alignItems="center" justifyContent="center" >
                   <Button variant="contained" color="primary" onClick={handleConfirmAccept}>Confirm</Button>
                   <Button variant="contained" color="warning" onClick={() => setIsAccepted(false)}>Cancel</Button>
                 </Grid>
