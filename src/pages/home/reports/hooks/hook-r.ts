@@ -27,7 +27,11 @@ export const useReportGET = () => {
     return useQuery<ReportResponse>('dashboard/report', async () => {
         const token = cookies.get('authToken');
         console.log(token);
+<<<<<<< HEAD
         const response = await axios.get<ReportResponse>('https://tawsella.online/api/dashboard/report', {
+=======
+        const response = await axios.get<ReportResponse>('http://127.0.0.1:8000/api/dashboard/report', {
+>>>>>>> 8ece63a93a954746e9a60c70c5bace5436cdf940
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',

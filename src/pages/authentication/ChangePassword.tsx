@@ -38,7 +38,11 @@ const ChangePassword = (): ReactElement => {
         setSuccess(null);
 
         try {
+<<<<<<< HEAD
             const response = await axios.post('https://tawsella.online/api/change-password', {
+=======
+            const response = await axios.post('http://127.0.0.1:8000/api/change-password', {
+>>>>>>> 8ece63a93a954746e9a60c70c5bace5436cdf940
                 current_password: currentPassword,
                 new_password: newPassword,
                 new_password_confirmation: newPasswordConfirmation,

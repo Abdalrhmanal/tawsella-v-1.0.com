@@ -55,7 +55,11 @@ interface DeleteTaxiResponse {
 export const useTaxiGET = () => {
   return useQuery<TaxisResponse>('taxis', async () => {
     const token = cookies.get('authToken');
+<<<<<<< HEAD
     const response = await axios.get<TaxisResponse>('https://tawsella.online/api/taxis', {
+=======
+    const response = await axios.get<TaxisResponse>('http://127.0.0.1:8000/api/taxis', {
+>>>>>>> 8ece63a93a954746e9a60c70c5bace5436cdf940
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
@@ -73,7 +77,11 @@ export const useTaxiGET = () => {
 export const useTaxiPOST = () => {
   return useMutation(async (taxiData: TaxiPostData) => {
     const token = cookies.get('authToken');
+<<<<<<< HEAD
     const response = await axios.post<TaxiResponse>('https://tawsella.online/api/taxis', taxiData, {
+=======
+    const response = await axios.post<TaxiResponse>('http://127.0.0.1:8000/api/taxis', taxiData, {
+>>>>>>> 8ece63a93a954746e9a60c70c5bace5436cdf940
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
@@ -92,7 +100,11 @@ export const useTaxiPUT = () => {
   return useMutation(async (taxiData: TaxiUpdateData) => {
     const token = cookies.get('authToken');
     const response = await axios.put<TaxiResponse>(
+<<<<<<< HEAD
       `https://tawsella.online/api/taxis/${taxiData.id}`,
+=======
+      `http://127.0.0.1:8000/api/taxis/${taxiData.id}`,
+>>>>>>> 8ece63a93a954746e9a60c70c5bace5436cdf940
       taxiData,
       {
         headers: {
@@ -113,7 +125,11 @@ export const useTaxiPUT = () => {
 export const useTaxiDELETE = () => {
   return useMutation(async (id: string) => {
     const token = cookies.get('authToken');
+<<<<<<< HEAD
     const response = await axios.delete<DeleteTaxiResponse>(`https://tawsella.online/api/taxis/${id}`, {
+=======
+    const response = await axios.delete<DeleteTaxiResponse>(`http://127.0.0.1:8000/api/taxis/${id}`, {
+>>>>>>> 8ece63a93a954746e9a60c70c5bace5436cdf940
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',

@@ -55,7 +55,11 @@ export const useAboutusGET = () => {
     'Aboutus',
     async () => {
       const token = getAuthToken();
+<<<<<<< HEAD
       const response = await axios.get<AboutusResponse>('https://tawsella.online/api/about-us', {
+=======
+      const response = await axios.get<AboutusResponse>('http://127.0.0.1:8000/api/about-us', {
+>>>>>>> 8ece63a93a954746e9a60c70c5bace5436cdf940
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
@@ -80,7 +84,11 @@ export const useAboutusPOST = () => {
   return useMutation<AboutusResponse, Error, AboutusPostData>(
     async (AboutusData) => {
       const token = getAuthToken();
+<<<<<<< HEAD
       const response = await axios.post<AboutusResponse>('https://tawsella.online/api/about-us/additonal/add', AboutusData, {
+=======
+      const response = await axios.post<AboutusResponse>('http://127.0.0.1:8000/api/about-us/additonal/add', AboutusData, {
+>>>>>>> 8ece63a93a954746e9a60c70c5bace5436cdf940
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
@@ -110,7 +118,11 @@ export const useAboutusPUT = () => {
     async (AboutusData) => {
       const token = getAuthToken();
       const response = await axios.put<AboutusResponse>(
+<<<<<<< HEAD
         `https://tawsella.online/api/about-us/${AboutusData.id}`,
+=======
+        `http://127.0.0.1:8000/api/about-us/${AboutusData.id}`,
+>>>>>>> 8ece63a93a954746e9a60c70c5bace5436cdf940
         AboutusData,
         {
           headers: {
@@ -162,7 +174,11 @@ export const useAboutusDELETE = () => {
   return useMutation<DeleteAboutusResponse, Error, string, { previousData: AboutusResponse | undefined }>(
     async (id) => {
       const token = getAuthToken();
+<<<<<<< HEAD
       const response = await axios.delete<DeleteAboutusResponse>(`https://tawsella.online/api/about-us/delete/${id}`, {
+=======
+      const response = await axios.delete<DeleteAboutusResponse>(`http://127.0.0.1:8000/api/about-us/delete/${id}`, {
+>>>>>>> 8ece63a93a954746e9a60c70c5bace5436cdf940
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
