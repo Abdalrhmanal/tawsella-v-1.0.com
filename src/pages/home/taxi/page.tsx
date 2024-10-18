@@ -133,7 +133,7 @@ function TaxiAll() {
       minWidth: 150,
       renderCell: (params) => (
         <Tooltip title={params.row.driverAvatar} placement="top" arrow enterDelay={0} leaveDelay={0}>
-          <Avatar src={`http://127.0.0.1:8000${params.row.driverAvatar}`} alt={params.row.driverAvatar} />
+          <Avatar src={`http://https://tawsella.online/api${params.row.driverAvatar}`} alt={params.row.driverAvatar} />
         </Tooltip>),
     },
     { field: 'lamp_number', headerName: 'Lamp Number', width: 150 },

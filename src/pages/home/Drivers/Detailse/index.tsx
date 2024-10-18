@@ -47,7 +47,7 @@ function Detailse({ selectedDriver, handleClose }: { selectedDriver: any; handle
         <Stack spacing={2}>
           <Box display="flex" justifyContent="center" alignItems="center">
             <Avatar
-              src={driverData.avatar ? `http://127.0.0.1:8000${driverData.avatar}` : "/default-avatar.png"}
+              src={driverData.avatar ? `http://https://tawsella.online/api${driverData.avatar}` : "/default-avatar.png"}
               alt={driverData.name || "Driver Avatar"}
               sx={{ width: 100, height: 100 }}
             />

@@ -36,7 +36,7 @@ function Calculations() {
             flex: 1,
             renderCell: (params) => (
                 <Tooltip title={params.row.name || 'Unknown'} placement="top" arrow enterDelay={0} leaveDelay={0}>
-                    <Avatar src={`http://127.0.0.1:8000${params.row.avatar}`} alt={params.row.name || "No name"} />
+                    <Avatar src={`http://https://tawsella.online/api${params.row.avatar}`} alt={params.row.name || "No name"} />
                 </Tooltip>
             ),
         },

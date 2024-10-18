@@ -32,7 +32,7 @@ function DriversAll() {
         <Grid container spacing={2}>
           <Stack direction="row" gap={1.5} component={Link}>
             <Tooltip title={params.row.name} placement="top" arrow enterDelay={0} leaveDelay={0}>
-              <Avatar src={`http://127.0.0.1:8000${params.row.avatar}`} alt={params.row.name} />
+              <Avatar src={`http://https://tawsella.online/api${params.row.avatar}`} alt={params.row.name} />
             </Tooltip>
             <Stack component="div">
               <Typography variant="body1" color="text.primary">
