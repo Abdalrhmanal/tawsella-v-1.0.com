@@ -22,11 +22,7 @@ export interface CalculationsData {
 export const useCalculationsGET = () => {
     return useQuery<CalculationsDTO>('/calculations', async () => {
         const token = getAuthToken();
-<<<<<<< HEAD
         const response = await axios.get<CalculationsDTO>('https://tawsella.online/api/calculations', {
-=======
-        const response = await axios.get<CalculationsDTO>('http://127.0.0.1:8000/api/calculations', {
->>>>>>> 8ece63a93a954746e9a60c70c5bace5436cdf940
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
@@ -40,11 +36,7 @@ export const useCalculationsGET = () => {
 export const useCalculationsDELETE = () => {
     return useMutation(async (row: { driver_id: string }) => {
         const token = getAuthToken();
-<<<<<<< HEAD
         const response = await axios.delete(`https://tawsella.online/api/calculations/${row.driver_id}`, {
-=======
-        const response = await axios.delete(`http://127.0.0.1:8000/api/calculations/${row.driver_id}`, {
->>>>>>> 8ece63a93a954746e9a60c70c5bace5436cdf940
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
@@ -59,11 +51,7 @@ export const useCalculationsDELETE = () => {
 export const useCalculationsPOST = () => {
     return useMutation(async (row: { driver_id: string }) => {
         const token = getAuthToken();
-<<<<<<< HEAD
         const response = await axios.post(`https://tawsella.online/api/calculations/bring/${row.driver_id}`, {}, { 
-=======
-        const response = await axios.post(`http://127.0.0.1:8000/api/calculations/bring/${row.driver_id}`, {}, { 
->>>>>>> 8ece63a93a954746e9a60c70c5bace5436cdf940
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',

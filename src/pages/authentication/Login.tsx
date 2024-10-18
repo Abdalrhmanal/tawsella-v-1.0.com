@@ -58,11 +58,7 @@ const Login = (): ReactElement => {
     setSnackbarOpen(false); // إغلاق الـ Snackbar
 
     try {
-<<<<<<< HEAD
       const response = await axios.post<LoginResponse>('https://tawsella.online/api/login',
-=======
-      const response = await axios.post<LoginResponse>('http://127.0.0.1:8000/api/login',
->>>>>>> 8ece63a93a954746e9a60c70c5bace5436cdf940
         { email, password },
         { headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' } }
       );

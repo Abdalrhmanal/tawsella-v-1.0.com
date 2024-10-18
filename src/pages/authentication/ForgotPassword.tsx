@@ -29,11 +29,7 @@ const ForgotPassword = (): ReactElement => {
     setSuccess(null);
 
     try {
-<<<<<<< HEAD
       const response = await axios.post('https://tawsella.online/api/verify-mail', { email });
-=======
-      const response = await axios.post('http://127.0.0.1:8000/api/verify-mail', { email });
->>>>>>> 8ece63a93a954746e9a60c70c5bace5436cdf940
 
       if (response.status === 200) {
         setSuccess('Password reset link has been sent to your email.');

@@ -16,11 +16,7 @@ export const useDriverPOST = () => {
   }) => {
     const token = cookies.get('authToken');
     
-<<<<<<< HEAD
     const response = await axios.post('https://tawsella.online/api/drivers', driverData, {
-=======
-    const response = await axios.post('http://127.0.0.1:8000/api/drivers', driverData, {
->>>>>>> 8ece63a93a954746e9a60c70c5bace5436cdf940
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
@@ -43,11 +39,7 @@ export const useDriverPUT = () => {
   }>(async (DriverData) => {
     const token = cookies.get('authToken');
     const response = await axios.put<DriversResponse>(
-<<<<<<< HEAD
       `https://tawsella.online/api/drivers/${DriverData.driver_id}`,
-=======
-      `http://127.0.0.1:8000/api/drivers/${DriverData.driver_id}`,
->>>>>>> 8ece63a93a954746e9a60c70c5bace5436cdf940
       DriverData,
       {
         headers: {
