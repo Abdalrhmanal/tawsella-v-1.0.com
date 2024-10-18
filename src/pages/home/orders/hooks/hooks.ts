@@ -10,7 +10,7 @@ export const useMovementCurrentGET = () => {
         const token = cookies.get('authToken'); 
         console.log(token); 
 
-        const response = await axios.get<RequestDataDTO>('http://127.0.0.1:8000/api/taxi-movement/current', {
+        const response = await axios.get<RequestDataDTO>('https://tawsella.online/api/taxi-movement/current', {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
@@ -30,7 +30,7 @@ export const useMovementCompletedGET = () => {
         const token = cookies.get('authToken'); 
         console.log(token); 
 
-        const response = await axios.get<RequestDataDTO>('http://127.0.0.1:8000/api/taxi-movement/completed', {
+        const response = await axios.get<RequestDataDTO>('https://tawsella.online/api/taxi-movement/completed', {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',

@@ -9,7 +9,7 @@ const getAuthToken = () => cookies.get('authToken');
 export const useDashboardGET = () => {
   return useQuery<DashboardResponse>('/dashboard', async () => {
     const token = getAuthToken();
-    const response = await axios.get<DashboardResponse>('http://127.0.0.1:8000/api/dashboard', {
+    const response = await axios.get<DashboardResponse>('https://tawsella.online/api/dashboard', {
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
@@ -26,7 +26,7 @@ export const useDashboardDetailseGET = ({ id }: { id: string; }, _p0: { enabled:
     async () => {
       const token = getAuthToken();
       const response = await axios.get<DashboardDetailseResponse>(
-        `http://127.0.0.1:8000/api/dashboard/movement-details/${id}`,
+        `https://tawsella.online/api/dashboard/movement-details/${id}`,
         {
           headers: {
             Accept: 'application/json',
@@ -47,7 +47,7 @@ export const useRejectPOST = ({ id }: { id: string }) => {
   return useMutation(
     async (Reject: { message?: string }) => {
       const token = getAuthToken();
-      const response = await axios.post(`http://127.0.0.1:8000/api/taxi-movement/reject/${id}`, Reject, {
+      const response = await axios.post(`https://tawsella.online/api/taxi-movement/reject/${id}`, Reject, {
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
@@ -71,7 +71,7 @@ export const useAcceptPOST = ({ id }: { id: string }) => {
   return useMutation(
     async (Accept: { driver_id: string }) => {
       const token = getAuthToken();
-      const response = await axios.post(`http://127.0.0.1:8000/api/taxi-movement/accept/${id}`, Accept, {
+      const response = await axios.post(`https://tawsella.online/api/taxi-movement/accept/${id}`, Accept, {
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',

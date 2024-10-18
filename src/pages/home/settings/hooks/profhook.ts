@@ -35,7 +35,7 @@ export interface ProfilePostData {
 export const useProfileGET = () => {
   return useQuery<ProfileResponse>('Profile', async () => {
     const token = cookies.get('authToken');
-    const response = await axios.get<ProfileResponse>('http://127.0.0.1:8000/api/profile', {
+    const response = await axios.get<ProfileResponse>('https://tawsella.online/api/profile', {
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
@@ -53,7 +53,7 @@ export const useProfileGET = () => {
 export const useProfilePOST = () => {
   return useMutation<ProfileResponse, Error, FormData>(async (formData) => {
     const token = cookies.get('authToken');
-    const response = await axios.post<ProfileResponse>('http://127.0.0.1:8000/api/profile', formData, {
+    const response = await axios.post<ProfileResponse>('https://tawsella.online/api/profile', formData, {
       headers: {
         Accept: 'application/json',
         'Content-Type': 'multipart/form-data', // Since we're using FormData

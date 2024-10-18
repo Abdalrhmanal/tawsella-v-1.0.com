@@ -14,7 +14,7 @@ export const useOfferPOST = () => {
       const token = cookies.get('authToken');
       console.log(token);
 
-      const response = await axios.post('http://127.0.0.1:8000/api/offers', offerData, {
+      const response = await axios.post('https://tawsella.online/api/offers', offerData, {
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',

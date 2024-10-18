@@ -55,7 +55,7 @@ export const useAboutusGET = () => {
     'Aboutus',
     async () => {
       const token = getAuthToken();
-      const response = await axios.get<AboutusResponse>('http://127.0.0.1:8000/api/about-us', {
+      const response = await axios.get<AboutusResponse>('https://tawsella.online/api/about-us', {
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
@@ -80,7 +80,7 @@ export const useAboutusPOST = () => {
   return useMutation<AboutusResponse, Error, AboutusPostData>(
     async (AboutusData) => {
       const token = getAuthToken();
-      const response = await axios.post<AboutusResponse>('http://127.0.0.1:8000/api/about-us/additonal/add', AboutusData, {
+      const response = await axios.post<AboutusResponse>('https://tawsella.online/api/about-us/additonal/add', AboutusData, {
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
@@ -110,7 +110,7 @@ export const useAboutusPUT = () => {
     async (AboutusData) => {
       const token = getAuthToken();
       const response = await axios.put<AboutusResponse>(
-        `http://127.0.0.1:8000/api/about-us/${AboutusData.id}`,
+        `https://tawsella.online/api/about-us/${AboutusData.id}`,
         AboutusData,
         {
           headers: {
@@ -162,7 +162,7 @@ export const useAboutusDELETE = () => {
   return useMutation<DeleteAboutusResponse, Error, string, { previousData: AboutusResponse | undefined }>(
     async (id) => {
       const token = getAuthToken();
-      const response = await axios.delete<DeleteAboutusResponse>(`http://127.0.0.1:8000/api/about-us/delete/${id}`, {
+      const response = await axios.delete<DeleteAboutusResponse>(`https://tawsella.online/api/about-us/delete/${id}`, {
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',

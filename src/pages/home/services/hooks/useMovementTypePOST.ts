@@ -16,7 +16,7 @@ export const useMovementTypePOST = () => {
       const token = cookies.get('authToken');
       console.log(token);
 
-      const response = await axios.post('http://127.0.0.1:8000/api/movement-types', formData, {
+      const response = await axios.post('https://tawsella.online/api/movement-types', formData, {
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
@@ -35,7 +35,7 @@ export const useMovementTypePUT = () => {
         console.log(token);
 
         const response = await axios.put(
-            `http://127.0.0.1:8000/api/movement-types/${row.id}`, 
+            `https://tawsella.online/api/movement-types/${row.id}`, 
             row,
             {
                 headers: {

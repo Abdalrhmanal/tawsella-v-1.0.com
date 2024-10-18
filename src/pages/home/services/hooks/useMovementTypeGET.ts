@@ -10,7 +10,7 @@ export const useMovementTypeGET = () => {
     const token = cookies.get('authToken');  
     console.log(token);
     
-    const response = await axios.get<MovementTypeResponse>('http://127.0.0.1:8000/api/movement-types', {
+    const response = await axios.get<MovementTypeResponse>('https://tawsella.online/api/movement-types', {
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
@@ -25,7 +25,7 @@ export const useMovementTypeGET = () => {
 export const useMovementTypeDELETE = () => {
   return useMutation(async (row: any) => {
       const token = cookies.get('authToken');
-      const response = await axios.delete(`http://127.0.0.1:8000/api/movement-types/${row.id}`, {
+      const response = await axios.delete(`https://tawsella.online/api/movement-types/${row.id}`, {
           headers: {
               'Accept': 'application/json',
               'Content-Type': 'application/json',

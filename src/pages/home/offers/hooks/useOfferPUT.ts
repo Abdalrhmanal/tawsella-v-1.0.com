@@ -10,7 +10,7 @@ export const useOfferPUT = () => {
         console.log(token);
 
         const response = await axios.put(
-            `http://127.0.0.1:8000/api/offers/${row.id}`, 
+            `https://tawsella.online/api/offers/${row.id}`, 
             row,
             {
                 headers: {

@@ -55,7 +55,7 @@ interface DeleteTaxiResponse {
 export const useTaxiGET = () => {
   return useQuery<TaxisResponse>('taxis', async () => {
     const token = cookies.get('authToken');
-    const response = await axios.get<TaxisResponse>('http://127.0.0.1:8000/api/taxis', {
+    const response = await axios.get<TaxisResponse>('https://tawsella.online/api/taxis', {
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
@@ -73,7 +73,7 @@ export const useTaxiGET = () => {
 export const useTaxiPOST = () => {
   return useMutation(async (taxiData: TaxiPostData) => {
     const token = cookies.get('authToken');
-    const response = await axios.post<TaxiResponse>('http://127.0.0.1:8000/api/taxis', taxiData, {
+    const response = await axios.post<TaxiResponse>('https://tawsella.online/api/taxis', taxiData, {
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
@@ -92,7 +92,7 @@ export const useTaxiPUT = () => {
   return useMutation(async (taxiData: TaxiUpdateData) => {
     const token = cookies.get('authToken');
     const response = await axios.put<TaxiResponse>(
-      `http://127.0.0.1:8000/api/taxis/${taxiData.id}`,
+      `https://tawsella.online/api/taxis/${taxiData.id}`,
       taxiData,
       {
         headers: {
@@ -113,7 +113,7 @@ export const useTaxiPUT = () => {
 export const useTaxiDELETE = () => {
   return useMutation(async (id: string) => {
     const token = cookies.get('authToken');
-    const response = await axios.delete<DeleteTaxiResponse>(`http://127.0.0.1:8000/api/taxis/${id}`, {
+    const response = await axios.delete<DeleteTaxiResponse>(`https://tawsella.online/api/taxis/${id}`, {
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',

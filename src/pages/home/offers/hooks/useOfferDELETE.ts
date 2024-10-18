@@ -7,7 +7,7 @@ const cookies = new Cookies();
 export const useOfferDELETE = () => {
     return useMutation(async (row: any) => {
         const token = cookies.get('authToken');
-        const response = await axios.delete(`http://127.0.0.1:8000/api/offers/${row.id}`, {
+        const response = await axios.delete(`https://tawsella.online/api/offers/${row.id}`, {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',

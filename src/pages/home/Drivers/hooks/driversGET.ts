@@ -9,7 +9,7 @@ export const useDriverAllGET = () => {
   return useQuery<DriversResponse>('users', async () => {
     const token = cookies.get('authToken');
     console.log(token);
-    const response = await axios.get<DriversResponse>('http://127.0.0.1:8000/api/drivers', {
+    const response = await axios.get<DriversResponse>('https://tawsella.online/api/drivers', {
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
