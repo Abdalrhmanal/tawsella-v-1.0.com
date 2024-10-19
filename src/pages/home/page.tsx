@@ -5,7 +5,6 @@ import RouteList from './components/Route';
 import { LifeTaxiMovement } from './hooks/type';
 import SaleInfoCards from 'components/sections/dashboard/Home/Sales/SaleInfoSection/SaleInfoCards';
 import Cookies from 'universal-cookie';
-import Echo from 'laravel-echo';
 import Pusher from 'pusher-js';
 import { useDashboardGET, useAcceptPOST, useRejectPOST } from './hooks/hookd';
 import { useSearchParams } from 'react-router-dom';
@@ -25,7 +24,6 @@ declare global {
 }
 
 const Home = (): ReactElement => {
-  const token = cookies.get('authToken');
   const user = cookies.get('userData');
   const { data: DashboardData, isLoading, isError, refetch } = useDashboardGET();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -42,22 +40,7 @@ const Home = (): ReactElement => {
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
 
   window.Pusher = Pusher;
-  window.Echo = new Echo({
-    broadcaster: 'reverb',
-    key: 'ni31bwqnyb4g9pbkk7sn',
-    wsHost: 'localhost',
-    wsPort: 8080,
-    wssPort: null,
-    forceTLS: false,
-    enabledTransports: ['ws'],
-    authEndpoint: 'http://localhost:8000/broadcasting/auth',
-    auth: {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    },
-  });
-  console.log(realTimeData);
+
   const { data: apiData } = useDriverAllGET();
   const activeDrivers = Array.isArray(apiData?.data)
     ? apiData.data.filter((driver: any) => driver.is_active === 1 && driver.driver_state === 'Ready').map((driver: any) => ({
@@ -68,71 +51,58 @@ const Home = (): ReactElement => {
 
   const { mutate: rejectRequest } = useRejectPOST({ id: selectedRequestId });
   const { mutate: acceptRequest } = useAcceptPOST({ id: selectedRequestId });
+  Pusher.logToConsole = true;
+
+  const pusher = new Pusher('769b65d85da71dd4cdff', {
+    cluster: 'eu',
+  });
+
+  const userId = user?.id;
+  const channel = pusher.subscribe(`Taxi-movement.${userId}`);
+  const channelfound = pusher.subscribe(`found-customer.${userId}`);
+  const channelconsole = pusher.subscribe(`admin-customer-cancel.${userId}`);
+  console.log(realTimeData);
+
+  // Function to display alert and play sound
+  const displayAlert = (message: string, severity: 'success' | 'warning' | 'error') => {
+    setAlertMessage(message);
+    setAlertSeverity(severity);
+    setShowAlert(true);
+    const audio = new Audio(soundFile);
+    audio.play();
+  };
+
+  // Binding events
+  channel.bind('requesting-transportation-service', function (event: any) {
+    setTimeout(() => {
+      setRealTimeData((prevData) => [...prevData, event]);
+      displayAlert(event.message || 'Customer Requesting Transportation Service!', 'success');
+      refetch();
+    }, 100);
+  });
+
+  channelfound.bind('foundCustomer', function (event: any) {
+    setTimeout(() => {
+      setRealTimeData((prevData) => [...prevData, event]);
+      displayAlert(event.message || 'Driver Found Customer in locations!', 'warning');
+      refetch();
+    }, 100);
+  });
+
+  channelconsole.bind('canceledTransportationServiceRequest', function (event: any) {
+    setTimeout(() => {
+      setRealTimeData((prevData) => [...prevData, event]);
+      displayAlert(event.message || 'Customer Canceled Request!', 'error');
+      refetch();
+    }, 100);
+  });
 
   useEffect(() => {
-    const userId = user?.id;
-    if (!userId) return;
-
-    window.Echo.private(`Taxi-movement.${userId}`)
-      .listen('.requesting-transportation-service', (event: any) => {
-        setRealTimeData((prevData) => [...prevData, event]);
-        setAlertMessage(event.message || 'Transportation service requested!');
-        setAlertSeverity('warning');
-        setShowAlert(true);
-        const audio = new Audio(soundFile);
-        audio.play();
-        setTimeout(() => setShowAlert(false), 5000);
-      })
-      .error((error: Error) => console.error('Error:', error));
-
-    refetch();
-    return () => {
-      window.Echo.leave(`Taxi-movement.${userId}`);
-    };
-  }, [user?.id]);
-
-  useEffect(() => {
-    const userId = user?.id;
-    if (!userId) return;
-
-    window.Echo.private(`foundCustomer.${userId}`)
-      .listen('.found-customer', (event: any) => {
-        setRealTimeData((prevData) => [...prevData, event]);
-        setAlertMessage(event.message || 'Customer found!');
-        setAlertSeverity('info');
-        setShowAlert(true);
-        const audio = new Audio(soundFile);
-        audio.play();
-        setTimeout(() => setShowAlert(false), 5000);
-      })
-      .error((error: Error) => console.error('Error:', error));
-
-    refetch();
-    return () => {
-      window.Echo.leave(`foundCustomer.${userId}`);
-    };
-  }, [user?.id]);
-
-  useEffect(() => {
-    const userId = user?.id;
-    if (!userId) return;
-
-    window.Echo.private(`admin-customer-cancel.${userId}`)
-      .listen('.canceledTransportationServiceRequest', (event: any) => {
-        setRealTimeData((prevData) => [...prevData, event]);
-        setAlertMessage(event.message || 'Transportation service request canceled!');
-        setAlertSeverity('error');
-        setShowAlert(true);
-        const audio = new Audio(soundFile);
-        audio.play();
-        setTimeout(() => setShowAlert(false), 5000);
-      })
-      .error((error: Error) => console.error('Error:', error));
-    refetch();
-    return () => {
-      window.Echo.leave(`admin-customer-cancel.${userId}`);
-    };
-  }, [user?.id]);
+    if (showAlert) {
+      const timer = setTimeout(() => setShowAlert(false), 5000); // Hide the alert after 5 seconds
+      return () => clearTimeout(timer);
+    }
+  }, [showAlert]);
 
   useEffect(() => {
     if (showSuccessAlert) {
@@ -174,6 +144,7 @@ const Home = (): ReactElement => {
       });
     }
   };
+
   if (isLoading) return <><Loding /></>;
   if (isError) return <p>Error loading data</p>;
 
@@ -249,3 +220,85 @@ const Home = (): ReactElement => {
 };
 
 export default Home;
+
+/*  window.Echo = new Echo({
+    broadcaster: 'reverb',
+    key: 'ni31bwqnyb4g9pbkk7sn',
+    wsHost: 'localhost',
+    wsPort: 8080,
+    wssPort: null,
+    forceTLS: false,
+    enabledTransports: ['ws'],
+    authEndpoint: 'http://localhost:8000/broadcasting/auth',
+    auth: {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    },
+  }); */
+
+/*  useEffect(() => {
+  const userId = user?.id;
+  if (!userId) return;
+
+  window.Echo.private(`Taxi-movement.${userId}`)
+    .listen('.requesting-transportation-service', (event: any) => {
+      setRealTimeData((prevData) => [...prevData, event]);
+      setAlertMessage(event.message || 'Transportation service requested!');
+      setAlertSeverity('warning');
+      setShowAlert(true);
+      const audio = new Audio(soundFile);
+      audio.play();
+      setTimeout(() => setShowAlert(false), 5000);
+    })
+    .error((error: Error) => console.error('Error:', error));
+
+  refetch();
+  return () => {
+    window.Echo.leave(`Taxi-movement.${userId}`);
+  };
+}, [user?.id]);
+
+useEffect(() => {
+  const userId = user?.id;
+  if (!userId) return;
+
+  window.Echo.private(`foundCustomer.${userId}`)
+    .listen('.found-customer', (event: any) => {
+      setRealTimeData((prevData) => [...prevData, event]);
+      setAlertMessage(event.message || 'Customer found!');
+      setAlertSeverity('info');
+      setShowAlert(true);
+      const audio = new Audio(soundFile);
+      audio.play();
+      setTimeout(() => setShowAlert(false), 5000);
+    })
+    .error((error: Error) => console.error('Error:', error));
+
+  refetch();
+  return () => {
+    window.Echo.leave(`foundCustomer.${userId}`);
+  };
+}, [user?.id]);
+
+useEffect(() => {
+  const userId = user?.id;
+  if (!userId) return;
+
+  window.Echo.private(`admin-customer-cancel.${userId}`)
+    .listen('.canceledTransportationServiceRequest', (event: any) => {
+      setRealTimeData((prevData) => [...prevData, event]);
+      setAlertMessage(event.message || 'Transportation service request canceled!');
+      setAlertSeverity('error');
+      setShowAlert(true);
+      const audio = new Audio(soundFile);
+      audio.play();
+      setTimeout(() => setShowAlert(false), 5000);
+    })
+    .error((error: Error) => console.error('Error:', error));
+  refetch();
+  return () => {
+    window.Echo.leave(`admin-customer-cancel.${userId}`);
+  };
+}, [user?.id]);
+*/
